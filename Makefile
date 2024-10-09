@@ -26,3 +26,9 @@ generate-user-api:
 	--go-grpc_out=pkg/tgapiv1 --go-grpc_opt=paths=source_relative \
 	--plugin=protoc-gen-go-grpc=bin/protoc-gen-go-grpc \
 	api/tgapiv1/tgapi.proto
+
+build:
+	GOOS=linux GOARCH=amd64 go build -o service_linux cmd/main.go
+
+copy-to-server:
+	scp -P 33 service_linux supernova:/root/test 
