@@ -10,12 +10,14 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
+// Tg реализует сервер TgServiceV1 для отправки сообщений в Telegram.
 type Tg struct {
 	tgapi.UnimplementedTgServiceV1Server
 	Bot    *tgbotapi.BotAPI
 	ChatID int64
 }
 
+// NewTgService создает новый экземпляр Tg, инициализируя Telegram-бот с переданными API-ключом и идентификатором чата.
 func NewTgService(botToken string, chatID int64) (*Tg, error) {
 	bot, err := tgbotapi.NewBotAPI(botToken)
 	if err != nil {
@@ -24,7 +26,8 @@ func NewTgService(botToken string, chatID int64) (*Tg, error) {
 	return &Tg{Bot: bot, ChatID: chatID}, nil
 }
 
-func (tg *Tg) SendMessage(ctx context.Context, req *tgapi.SendMessageRequest) (*emptypb.Empty, error) {
+// SendMessage отправляет сообщение в указанный чат Telegram.
+func (tg *Tg) SendMessage(_ context.Context, req *tgapi.SendMessageRequest) (*emptypb.Empty, error) {
 	msg := tgbotapi.NewMessage(tg.ChatID, req.Message)
 	if _, err := tg.Bot.Send(msg); err != nil {
 		log.Printf("Ошибка отправки сообщения: %v", err)
