@@ -58,4 +58,4 @@ jobs:
             docker rm $CONTAINER_NAME
             
             # Run a new container from a new image
-            docker run -d -p 8080:8080 --name $CONTAINER_NAME -t $REGISTRY/$IMAGE_NAME:$TAG_NAME -v /root/test/config.yaml:/root/config.yaml
+            docker run -d -p 8080:8080 -v /root/test/config.yaml:/root/config.yaml --name $CONTAINER_NAME -t $REGISTRY/$IMAGE_NAME:$TAG_NAME
