@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package tgapiv1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/erikqwerty/tgservice/pkg/tgapi;tgapi";
+
+
+service TgServiceV1{
+  rpc SendMessage(SendMessageRequest) returns (google.protobuf.Empty);
+}
+
+message SendMessageRequest{
+  string message = 1;
+}
